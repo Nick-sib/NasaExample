@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Material</string>
+    <string name="photo_of_the_day_stub">Photo of the day</string>
+    <string name="search_wiki">Найти в Википедии</string>
+    <string name="wiki_helper_text">Поищите термин в википедии</string>
+    <string name="favourite">favourite</string>
+    <string name="settings">settings</string>
+    <string name="search">Search</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="chip_text_default">Default</string>
+    <string name="chip_text_entry">Entry</string>
+    <string name="chip_text_choice">Choice</string>
+    <string name="chip_text_action">Action</string>
+    <string name="chip_text_filter">Filter</string>
+    <string name="chip_text_background_color">Background Color</string>
+    <string name="chip_text_ripple_color">Ripple Color</string>
+    <string name="chip_text_chip_icon">Chip icon</string>
+    <string name="chip_text_one">One</string>
+    <string name="chip_text_two">Two</string>
+    <string name="textview_text_choose_one">Choose One</string>
+    <string name="chip_text_choice_a">Choice A</string>
+    <string name="chip_text_choice_b">Choice B</string>
+    <string name="chip_text_choice_c">Choice C</string>
+    <string name="chip_text_chip">Chip</string>
+    <string name="chip_text_group">Group</string>
+    <string name="chip_text_in">in</string>
+    <string name="chip_text_single">single</string>
+    <string name="chip_text_line">line</string>
+    <string name="chip_text_add">add</string>
+    <string name="chip_text_a">a</string>
+    <string name="chip_text_horizontal">horizontal</string>
+    <string name="chip_text_scroll">scroll</string>
+    <string name="chip_text_close_icon_listener">Close Icon Listener</string>
+    <string name="menu_text_screen_one">На экран 1</string>
+    <string name="menu_text_screen_two">На экран 2</string>
+    <string name="fab_description">Demo button to show some actions</string>
+</resources>
