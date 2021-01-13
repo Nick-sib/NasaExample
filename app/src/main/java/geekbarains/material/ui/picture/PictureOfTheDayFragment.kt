@@ -24,7 +24,6 @@ class PictureOfTheDayFragment : Fragment() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
-        //ViewModelProviders.of(this).get(PictureOfTheDayViewModel::class.java)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -77,7 +76,7 @@ class PictureOfTheDayFragment : Fragment() {
         when (data) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
-                val url = serverResponseData.url
+                val url = serverResponseData.singleUrl
                 if (url.isNullOrEmpty()) {
                     //showError("Сообщение, что ссылка пустая")
                     toast("Link is empty")
@@ -140,7 +139,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = PictureOfTheDayFragment()
+        fun instance() = PictureOfTheDayFragment()
         private var isMain = true
     }
 }

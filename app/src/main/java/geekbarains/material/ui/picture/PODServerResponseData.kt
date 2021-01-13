@@ -3,11 +3,13 @@ package geekbarains.material.ui.picture
 import com.google.gson.annotations.SerializedName
 
 data class PODServerResponseData(
-    @field:SerializedName("copyright") val copyright: String?,
-    @field:SerializedName("date") val date: String?,
-    @field:SerializedName("explanation") val explanation: String?,
-    @field:SerializedName("media_type") val mediaType: String?,
-    @field:SerializedName("title") val title: String?,
-    @field:SerializedName("url") val url: String?,
-    @field:SerializedName("hdurl") val hdUrl: String?
+    val copyright: String?,
+    val date: String?,
+    val explanation: String?,
+    val mediaType: String?,
+    val title: String?,
+    @field:SerializedName("url")
+    val singleUrl: String?,
+    @field:SerializedName("hdurl")
+    val hDUrl: String?
 )
