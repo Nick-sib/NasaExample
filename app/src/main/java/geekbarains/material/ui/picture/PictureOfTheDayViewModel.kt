@@ -3,6 +3,7 @@ package geekbarains.material.ui.picture
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import geekbarains.material.BuildConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +21,7 @@ class PictureOfTheDayViewModel(
 
     private fun sendServerRequest() {
         liveDataForViewToObserve.value = PictureOfTheDayData.Loading(null)
-        val apiKey: String = "test"//BuildConfig.NASA_API_KEY
+        val apiKey: String = BuildConfig.NASA_API_KEY
 
 
         if (apiKey.isBlank()) {
