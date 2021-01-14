@@ -1,10 +1,14 @@
-package geekbarains.material.ui.picture
+package geekbarains.material.view.ui.fragmetns
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -14,17 +18,25 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import geekbarains.material.R
 import geekbarains.material.databinding.MainFragmentBinding
-import geekbarains.material.ui.MainActivity
-import geekbarains.material.ui.chips.ChipsFragment
+import geekbarains.material.model.entity.PictureOfTheDayData
+import geekbarains.material.model.entity.getDate
+import geekbarains.material.view.ui.MainActivity
+import geekbarains.material.viewmodel.PictureOfTheDayViewModel
+
+import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
 
     private var binding: MainFragmentBinding? = null
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetView: ConstraintLayout
+
+
+
+
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
-        //ViewModelProviders.of(this).get(PictureOfTheDayViewModel::class.java)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -41,14 +53,25 @@ class PictureOfTheDayFragment : Fragment() {
         it.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         binding?.run {
             inputLayout.setEndIconOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse("https://en.wikipedia.org/wiki/${inputEditText.text.toString()}")
                 })
+            }
+            bottomSheetView = root.findViewById(R.id.bottom_sheet_container)
+            bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
+
+            chipGroupPictureDay.setOnCheckedChangeListener { _, checkedId ->
+                viewModel.sendServerRequest(
+                    getDate(when(checkedId) {
+                        1 -> -2
+                        2 -> -1
+                        else -> 0}
+                ))
             }
         }
 
@@ -62,7 +85,13 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_fav -> toast("Favourite")
+            R.id.app_bar_bottom_sheet -> {
+                bottomSheetView.visibility = View.VISIBLE
+                changeBottomSheetState()
+            }
+            R.id.app_bar_fav -> {
+                toast("Favourite")
+            }
             R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()?.add(R.id.container, ChipsFragment())?.addToBackStack(null)?.commit()
             android.R.id.home -> {
                 activity?.let {
@@ -77,7 +106,7 @@ class PictureOfTheDayFragment : Fragment() {
         when (data) {
             is PictureOfTheDayData.Success -> {
                 val serverResponseData = data.serverResponseData
-                val url = serverResponseData.url
+                val url = serverResponseData.singleUrl
                 if (url.isNullOrEmpty()) {
                     //showError("Сообщение, что ссылка пустая")
                     toast("Link is empty")
@@ -90,13 +119,20 @@ class PictureOfTheDayFragment : Fragment() {
                             placeholder(R.drawable.ic_no_photo_vector)
                         }
                     }
+                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description_header).text =
+                            serverResponseData.title
+                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description).text =
+                            serverResponseData.explanation
+                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_date).text =
+                            serverResponseData.date
+                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_copyright).text =
+                            serverResponseData.copyright
                 }
             }
             is PictureOfTheDayData.Loading -> {
-                //showLoading()
+                Log.d("myLOG", "renderData: ${data.progress}")
             }
             is PictureOfTheDayData.Error -> {
-                //showError(data.error.message)
                 toast(data.error.message)
             }
         }
@@ -124,15 +160,21 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
         }
-
     }
 
-    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    private fun changeBottomSheetState() {
+        with (bottomSheetBehavior){
+            state = when (state) {
+                BottomSheetBehavior.STATE_HIDDEN,
+                BottomSheetBehavior.STATE_COLLAPSED     -> BottomSheetBehavior.STATE_HALF_EXPANDED
+                BottomSheetBehavior.STATE_HALF_EXPANDED,
+                BottomSheetBehavior.STATE_EXPANDED      -> BottomSheetBehavior.STATE_COLLAPSED
+                else -> BottomSheetBehavior.STATE_COLLAPSED
+            }
+        }
     }
 
-    private fun Fragment.toast(string: String?) {
+    private fun toast(string: String?) {
         Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
             setGravity(Gravity.BOTTOM, 0, 250)
             show()
@@ -140,7 +182,7 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = PictureOfTheDayFragment()
+        fun instance() = PictureOfTheDayFragment()
         private var isMain = true
     }
 }

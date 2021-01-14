@@ -13,8 +13,8 @@
             android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp">
+            android:paddingStart="@dimen/default_offset_full"
+            android:paddingEnd="@dimen/default_offset_full">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_layout"
@@ -39,21 +39,57 @@
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <geekbarains.material.util.EquilateralImageView
+            <ImageView
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_offset_full"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:contentDescription="@string/photo_of_the_day_stub"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/input_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_no_photo_vector" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupPictureDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_offset_full"
+                app:singleSelection="true"
+                app:layout_constraintTop_toBottomOf="@id/image_view"
+                app:layout_constraintBottom_toBottomOf="@id/main"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/ChipsStyle"
+                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:textAlignment="center"
+                    android:text="@string/s_eve_day" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/ChipsStyle"
+                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:textAlignment="center"
+                    android:text="@string/s_yesterday" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/ChipsStyle"
+                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:textAlignment="center"
+                    android:text="@string/s_today"
+                    android:checked="true"/>
+            </com.google.android.material.chip.ChipGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <include layout="@layout/bottom_sheet_layout" />
+    <include
+        layout="@layout/bottom_sheet_layout" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"

@@ -7,4 +7,25 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="DescriptionBodyStyle">
+        <item name="android:paddingStart">@dimen/default_offset_full</item>
+        <item name="android:paddingEnd">@dimen/default_offset_full</item>
+    </style>
+
+    <style name="DescriptionHeaderStyle" parent="DescriptionBodyStyle">
+        <item name="android:textColor">@color/color_black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/default_offset_half</item>
+    </style>
+
+    <style name="ChipsStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:layout_width">@dimen/default_chips_width</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+<!--my style without anything used until the style is invented-->
+    <style name="DescriptionEmptyStyle">
+        <item name="android:layout_margin">@dimen/default_offset_full</item>
+    </style>
 </resources>

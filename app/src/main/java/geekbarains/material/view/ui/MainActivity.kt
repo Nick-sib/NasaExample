@@ -1,10 +1,10 @@
-package geekbarains.material.ui
+package geekbarains.material.view.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import geekbarains.material.R
 import geekbarains.material.databinding.MainActivityBinding
-import geekbarains.material.ui.picture.PictureOfTheDayFragment
+import geekbarains.material.view.ui.fragmetns.PictureOfTheDayFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, PictureOfTheDayFragment.newInstance())
+                .replace(R.id.container, PictureOfTheDayFragment.instance())
                 .commitNow()
         }
     }
