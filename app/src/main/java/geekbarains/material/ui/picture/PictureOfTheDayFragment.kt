@@ -3,7 +3,9 @@ package geekbarains.material.ui.picture
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -22,6 +24,8 @@ class PictureOfTheDayFragment : Fragment() {
     private var binding: MainFragmentBinding? = null
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetView: ConstraintLayout
+
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
     }
@@ -37,12 +41,14 @@ class PictureOfTheDayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = MainFragmentBinding.inflate(inflater, container, false).let{
         binding = it
+        bottomSheetView = it.root.findViewById(R.id.bottom_sheet_container)
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
+
         it.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBottomSheetBehavior(view.findViewById(R.id.bottom_sheet_container))
         binding?.run {
             inputLayout.setEndIconOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -61,7 +67,13 @@ class PictureOfTheDayFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.app_bar_fav -> toast("Favourite")
+            R.id.app_bar_bottom_sheet -> {
+                bottomSheetView.visibility = View.VISIBLE
+                changeBottomSheetState()
+            }
+            R.id.app_bar_fav -> {
+                toast("Favourite")
+            }
             R.id.app_bar_settings -> activity?.supportFragmentManager?.beginTransaction()?.add(R.id.container, ChipsFragment())?.addToBackStack(null)?.commit()
             android.R.id.home -> {
                 activity?.let {
@@ -89,13 +101,20 @@ class PictureOfTheDayFragment : Fragment() {
                             placeholder(R.drawable.ic_no_photo_vector)
                         }
                     }
+                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description_header).text =
+                            serverResponseData.title
+                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description).text =
+                            serverResponseData.explanation
+                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_date).text =
+                            serverResponseData.date
+                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_copyright).text =
+                            serverResponseData.copyright
                 }
             }
             is PictureOfTheDayData.Loading -> {
-                //showLoading()
+                Log.d("myLOG", "renderData: ${data.progress}")
             }
             is PictureOfTheDayData.Error -> {
-                //showError(data.error.message)
                 toast(data.error.message)
             }
         }
@@ -123,15 +142,21 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
         }
-
     }
 
-    private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    private fun changeBottomSheetState() {
+        with (bottomSheetBehavior){
+            state = when (state) {
+                BottomSheetBehavior.STATE_HIDDEN,
+                BottomSheetBehavior.STATE_COLLAPSED     -> BottomSheetBehavior.STATE_HALF_EXPANDED
+                BottomSheetBehavior.STATE_HALF_EXPANDED,
+                BottomSheetBehavior.STATE_EXPANDED      -> BottomSheetBehavior.STATE_COLLAPSED
+                else -> BottomSheetBehavior.STATE_COLLAPSED
+            }
+        }
     }
 
-    private fun Fragment.toast(string: String?) {
+    private fun toast(string: String?) {
         Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
             setGravity(Gravity.BOTTOM, 0, 250)
             show()

@@ -5,6 +5,7 @@
     <string name="wiki_helper_text">Поищите термин в википедии</string>
     <string name="favourite">favourite</string>
     <string name="settings">settings</string>
+    <string name="info">info</string>
     <string name="search">Search</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -35,4 +36,5 @@
     <string name="menu_text_screen_one">На экран 1</string>
     <string name="menu_text_screen_two">На экран 2</string>
     <string name="fab_description">Demo button to show some actions</string>
+
 </resources>
