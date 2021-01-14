@@ -1,16 +1,20 @@
-package geekbarains.material.ui.picture
+package geekbarains.material.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import geekbarains.material.BuildConfig
+import geekbarains.material.model.repo.PODRetrofit
+import geekbarains.material.model.repo.retrofit.PODRetrofitImpl
+import geekbarains.material.model.entity.PODServerResponseData
+import geekbarains.material.model.entity.PictureOfTheDayData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class PictureOfTheDayViewModel(
-    private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
-    private val retrofitImpl: PODRetrofitImpl = PODRetrofitImpl()
+        private val liveDataForViewToObserve: MutableLiveData<PictureOfTheDayData> = MutableLiveData(),
+        private val retrofit: PODRetrofit = PODRetrofitImpl()
 ) :
     ViewModel() {
 
@@ -25,11 +29,11 @@ class PictureOfTheDayViewModel(
         if (apiKey.isBlank()) {
             produceError("You need API key")
         } else {
-            retrofitImpl.getRetrofitImpl().getPictureOfTheDay(apiKey).enqueue(
+            retrofit.getRetrofitImpl().getPictureOfTheDay(apiKey).enqueue(
                 object : Callback<PODServerResponseData> {
                     override fun onResponse(
-                        call: Call<PODServerResponseData>,
-                        response: Response<PODServerResponseData>
+                            call: Call<PODServerResponseData>,
+                            response: Response<PODServerResponseData>
                     ) {
                         if (response.isSuccessful) {
                             response.body()?.run {

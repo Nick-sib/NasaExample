@@ -1,5 +1,6 @@
-package geekbarains.material.ui.picture
+package geekbarains.material.model.api
 
+import geekbarains.material.model.entity.PODServerResponseData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

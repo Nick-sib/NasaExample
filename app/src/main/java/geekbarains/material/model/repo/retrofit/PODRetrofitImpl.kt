@@ -1,6 +1,8 @@
-package geekbarains.material.ui.picture
+package geekbarains.material.model.repo.retrofit
 
 import com.google.gson.GsonBuilder
+import geekbarains.material.model.api.PictureOfTheDayAPI
+import geekbarains.material.model.repo.PODRetrofit
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,11 +10,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-class PODRetrofitImpl {
+class PODRetrofitImpl: PODRetrofit {
 
     private val baseUrl = "https://api.nasa.gov/"
 
-    fun getRetrofitImpl(): PictureOfTheDayAPI {
+    override fun getRetrofitImpl(): PictureOfTheDayAPI {
         val podRetrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))

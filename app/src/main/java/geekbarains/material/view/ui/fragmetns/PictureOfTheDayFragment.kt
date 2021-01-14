@@ -1,4 +1,4 @@
-package geekbarains.material.ui.picture
+package geekbarains.material.view.ui.fragmetns
 
 import android.content.Intent
 import android.net.Uri
@@ -16,8 +16,9 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import geekbarains.material.R
 import geekbarains.material.databinding.MainFragmentBinding
-import geekbarains.material.ui.MainActivity
-import geekbarains.material.ui.chips.ChipsFragment
+import geekbarains.material.model.entity.PictureOfTheDayData
+import geekbarains.material.view.ui.MainActivity
+import geekbarains.material.viewmodel.PictureOfTheDayViewModel
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -41,9 +42,6 @@ class PictureOfTheDayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = MainFragmentBinding.inflate(inflater, container, false).let{
         binding = it
-        bottomSheetView = it.root.findViewById(R.id.bottom_sheet_container)
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
-
         it.root
     }
 
@@ -55,6 +53,8 @@ class PictureOfTheDayFragment : Fragment() {
                     data = Uri.parse("https://en.wikipedia.org/wiki/${inputEditText.text.toString()}")
                 })
             }
+            bottomSheetView = root.findViewById(R.id.bottom_sheet_container)
+            bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
         }
 
         setBottomAppBar(view)
