@@ -55,6 +55,38 @@ class PictureOfTheDayViewModel(
         }
     }
 
+    fun sendServerRequest(date: String) {
+        liveDataForViewToObserve.value = PictureOfTheDayData.Loading(null)
+        val apiKey: String = BuildConfig.NASA_API_KEY
+        if (apiKey.isBlank()) {
+            produceError("You need API key")
+        } else {
+            retrofit.getRetrofitImpl().getPictureOfTheDay(date, apiKey).enqueue(
+                    object : Callback<PODServerResponseData> {
+                        override fun onResponse(
+                                call: Call<PODServerResponseData>,
+                                response: Response<PODServerResponseData>
+                        ) {
+                            if (response.isSuccessful) {
+                                response.body()?.run {
+                                    liveDataForViewToObserve.value =
+                                            PictureOfTheDayData.Success(this)
+                                } ?: run {
+                                    produceError(response.message())
+                                }
+                            } else {
+                                produceError(response.message())
+                            }
+                        }
+                        override fun onFailure(
+                                call: Call<PODServerResponseData>,
+                                t: Throwable
+                        ) = produceError(t.message)
+                    }
+            )
+        }
+    }
+
     fun produceError(message: String?) {
         if (message.isNullOrEmpty()) {
             liveDataForViewToObserve.value =

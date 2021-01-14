@@ -19,6 +19,11 @@
         <item name="android:layout_marginTop">@dimen/default_offset_half</item>
     </style>
 
+    <style name="ChipsStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:layout_width">@dimen/default_chips_width</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
 <!--my style without anything used until the style is invented-->
     <style name="DescriptionEmptyStyle">
         <item name="android:layout_margin">@dimen/default_offset_full</item>

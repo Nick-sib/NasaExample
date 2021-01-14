@@ -2,11 +2,13 @@ package geekbarains.material.view.ui.fragmetns
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -17,8 +19,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import geekbarains.material.R
 import geekbarains.material.databinding.MainFragmentBinding
 import geekbarains.material.model.entity.PictureOfTheDayData
+import geekbarains.material.model.entity.getDate
 import geekbarains.material.view.ui.MainActivity
 import geekbarains.material.viewmodel.PictureOfTheDayViewModel
+
+import java.util.*
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -26,6 +31,9 @@ class PictureOfTheDayFragment : Fragment() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var bottomSheetView: ConstraintLayout
+
+
+
 
     private val viewModel: PictureOfTheDayViewModel by lazy {
         ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
@@ -45,6 +53,7 @@ class PictureOfTheDayFragment : Fragment() {
         it.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.run {
@@ -55,6 +64,15 @@ class PictureOfTheDayFragment : Fragment() {
             }
             bottomSheetView = root.findViewById(R.id.bottom_sheet_container)
             bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
+
+            chipGroupPictureDay.setOnCheckedChangeListener { _, checkedId ->
+                viewModel.sendServerRequest(
+                    getDate(when(checkedId) {
+                        1 -> -2
+                        2 -> -1
+                        else -> 0}
+                ))
+            }
         }
 
         setBottomAppBar(view)
