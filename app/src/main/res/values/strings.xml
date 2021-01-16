@@ -19,10 +19,10 @@
     <string name="chip_text_chip_icon">Chip icon</string>
     <string name="chip_text_one">One</string>
     <string name="chip_text_two">Two</string>
-    <string name="textview_text_choose_one">Choose One</string>
-    <string name="chip_text_choice_a">Choice A</string>
-    <string name="chip_text_choice_b">Choice B</string>
-    <string name="chip_text_choice_c">Choice C</string>
+    <string name="tv_text_choose_theme">Choose One</string>
+    <string name="chip_text_theme_day">Дневная</string>
+    <string name="chip_text_theme_night">Ночная</string>
+    <string name="chip_text_theme_toxic">Ядовитая</string>
     <string name="chip_text_chip">Chip</string>
     <string name="chip_text_group">Group</string>
     <string name="chip_text_in">in</string>

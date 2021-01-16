@@ -24,6 +24,12 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="ChipSelectTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:layout_width">@dimen/default_chips_width</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginStart">@dimen/default_offset_full</item>
+    </style>
+
 <!--my style without anything used until the style is invented-->
     <style name="DescriptionEmptyStyle">
         <item name="android:layout_margin">@dimen/default_offset_full</item>
