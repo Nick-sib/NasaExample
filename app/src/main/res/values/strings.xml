@@ -19,7 +19,7 @@
     <string name="chip_text_chip_icon">Chip icon</string>
     <string name="chip_text_one">One</string>
     <string name="chip_text_two">Two</string>
-    <string name="tv_text_choose_theme">Choose One</string>
+    <string name="tv_text_choose_theme">Выберите тему</string>
     <string name="chip_text_theme_day">Дневная</string>
     <string name="chip_text_theme_night">Ночная</string>
     <string name="chip_text_theme_toxic">Ядовитая</string>
@@ -39,5 +39,6 @@
     <string name="s_eve_day">Позавчера</string>
     <string name="s_yesterday">Вчера</string>
     <string name="s_today">Сегодня</string>
+    <string name="s_apply">Применить</string>
 
 </resources>
