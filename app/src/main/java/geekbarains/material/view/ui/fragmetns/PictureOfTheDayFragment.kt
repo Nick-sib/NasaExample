@@ -91,7 +91,7 @@ class PictureOfTheDayFragment : Fragment() {
                 toast("Favourite")
             }
             R.id.app_bar_settings ->
-                childFragmentManager.beginTransaction().add(R.id.container, SettingFragment()).addToBackStack(null).commit()
+                parentFragmentManager.beginTransaction().add(R.id.container, SettingFragment()).addToBackStack(null).commit()
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")

@@ -4,15 +4,21 @@ import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 
-const val THEME_LIGHT = 0
-const val THEME_DARK  = 1
-const val THEME_TOXIC = 2
+const val THEME_LIGHT = AppCompatDelegate.MODE_NIGHT_NO
+const val THEME_DARK  = AppCompatDelegate.MODE_NIGHT_YES
+const val THEME_SYSTEM = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+
+const val STYLE_DEFAULT = 0
+const val STYLE_TOXIC = 1
+
 private const val PREFS_KEY_THEME = "theme"
+private const val PREFS_KEY_STYLE = "style"
+
 
 class App: Application(){
 
     private fun saveKey(key: String, theme: Int) = sharedPrefs.edit().putInt(key, theme).apply()
-    private fun loadKey(key: String) = sharedPrefs.getInt(key, THEME_LIGHT)
+    private fun loadKey(key: String, defValue: Int) = sharedPrefs.getInt(key, defValue)
 
     private val sharedPrefs by lazy {
         getSharedPreferences(
@@ -21,25 +27,42 @@ class App: Application(){
         )
     }
 
-    private fun setTheme(themeMode: Int, prefsMode: Int) {
-        AppCompatDelegate.setDefaultNightMode(themeMode)
-        saveKey(PREFS_KEY_THEME, prefsMode)
-    }
+    private fun loadTheme() = loadKey(PREFS_KEY_THEME, THEME_SYSTEM)
+    private fun saveTheme(value: Int) = saveKey(PREFS_KEY_THEME, value)
 
-    var selectedTheme = 0
+    private fun loadStyle() = loadKey(PREFS_KEY_STYLE, STYLE_DEFAULT)
+    private fun saveStyle(value: Int) = saveKey(PREFS_KEY_THEME, value)
+
+
+//    private fun setTheme(themeMode: Int, prefsMode: Int) {
+//        AppCompatDelegate.setDefaultNightMode(themeMode)
+//        saveKey(PREFS_KEY_THEME, prefsMode)
+//    }
+
+    var selectedTheme: Int = THEME_SYSTEM
         set(value) {
-            val themeMode = if (value == 1) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-            setTheme(themeMode, value)
+            if (value != field) {
+                saveTheme(value)
+                AppCompatDelegate.setDefaultNightMode(value)
+            }
             field = value
         }
+
+    var selectedStyle: Int = STYLE_DEFAULT
+        set(value) {
+            if (value != field) {
+                saveStyle(value)
+            }
+            field = value
+        }
+
+
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        selectedTheme = loadKey(PREFS_KEY_THEME)
-
-        if (selectedTheme == THEME_DARK)
-            setTheme(AppCompatDelegate.MODE_NIGHT_YES, THEME_DARK)
+        selectedTheme = loadTheme()
+        selectedStyle = loadStyle()
     }
 
     companion object {

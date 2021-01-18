@@ -28,6 +28,7 @@
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_theme_light"
             style="@style/ChipSelectTheme"
+            android:checked="true"
             android:layout_height="wrap_content"
             android:text="@string/chip_text_theme_day"/>
 
@@ -38,11 +39,53 @@
             android:text="@string/chip_text_theme_night" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_theme_toxic"
+            android:id="@+id/chip_theme_system"
             style="@style/ChipSelectTheme"
             android:layout_height="wrap_content"
-            android:text="@string/chip_text_theme_toxic" />
+            android:text="@string/chip_text_theme_system"/>
     </com.google.android.material.chip.ChipGroup>
+
+
+    <TextView
+        android:id="@+id/tv_choose_style"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_text_choose_style"
+        app:layout_constraintTop_toBottomOf="@id/cg_choose_theme"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/cg_choose_style"
+        android:layout_margin="@dimen/default_offset_full"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:singleSelection="true"
+        app:layout_constraintTop_toBottomOf="@id/tv_choose_style"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_style_default"
+            style="@style/ChipSelectTheme"
+            android:checked="true"
+            android:layout_height="wrap_content"
+            android:text="@string/chip_text_style_default"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_style_toxic"
+            style="@style/ChipSelectTheme"
+            android:layout_height="wrap_content"
+            android:text="@string/chip_text_style_toxic" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/delme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Чип с другим стилем"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cg_choose_style" />
 
 
     <!--LinearLayout

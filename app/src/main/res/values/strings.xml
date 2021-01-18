@@ -20,9 +20,13 @@
     <string name="chip_text_one">One</string>
     <string name="chip_text_two">Two</string>
     <string name="tv_text_choose_theme">Выберите тему</string>
+    <string name="tv_text_choose_style">Выберите стиль</string>
     <string name="chip_text_theme_day">Дневная</string>
     <string name="chip_text_theme_night">Ночная</string>
-    <string name="chip_text_theme_toxic">Ядовитая</string>
+    <string name="chip_text_theme_system">Системная</string>
+
+    <string name="chip_text_style_default">Стандарт</string>
+    <string name="chip_text_style_toxic">Ядовитый</string>
     <string name="chip_text_chip">Chip</string>
     <string name="chip_text_group">Group</string>
     <string name="chip_text_in">in</string>
