@@ -1,9 +1,14 @@
 package geekbarains.material.view.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import geekbarains.material.App
 import geekbarains.material.R
+import geekbarains.material.STYLE_DEFAULT
+import geekbarains.material.STYLE_TOXIC
 import geekbarains.material.databinding.MainActivityBinding
+
 import geekbarains.material.view.ui.fragmetns.PictureOfTheDayFragment
 
 class MainActivity : AppCompatActivity() {
@@ -13,6 +18,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
+
+        setTheme(
+                when (App.instance.selectedStyle){
+                    STYLE_DEFAULT -> R.style.AppTheme
+                    STYLE_TOXIC -> R.style.ToxicTheme
+                    else -> R.style.AppTheme
+                } )
+        Log.d("myLOG", "onCreate: ${App.instance.selectedStyle}")
+
         setContentView(binding.root)
 
         if (savedInstanceState == null) {

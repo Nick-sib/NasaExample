@@ -7,7 +7,7 @@
     android:id="@+id/bottom_sheet_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bottom_menu_dg"
+    android:background="@color/fragment_default_color"
     android:paddingBottom="@dimen/bottom_sheet_padding"
     android:visibility="gone"
     tools:visibility="visible"
@@ -47,7 +47,7 @@
 
     <TextView
         android:id="@+id/bottom_sheet_date"
-        style="@style/DescriptionEmptyStyle"
+        style="@style/EmptyStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/bottom_sheet_description"
@@ -56,7 +56,7 @@
 
     <TextView
         android:id="@+id/bottom_sheet_copyright"
-        style="@style/DescriptionEmptyStyle"
+        style="@style/EmptyStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/bottom_sheet_date"
