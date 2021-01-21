@@ -2,45 +2,46 @@ package geekbarains.material.view.ui.fragmetns
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import coil.api.load
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import geekbarains.material.R
 import geekbarains.material.databinding.MainFragmentBinding
+import geekbarains.material.model.entity.LoadedData
+import geekbarains.material.model.entity.LoadedDataImpl
 import geekbarains.material.model.entity.PictureOfTheDayData
 import geekbarains.material.view.ui.MainActivity
 import geekbarains.material.view.ui.adapters.HistoryPageAdapter
-import geekbarains.material.viewmodel.PictureOfTheDayViewModel
-
 
 
 class PictureOfTheDayFragment : Fragment() {
 
     private var binding: MainFragmentBinding? = null
+    val loadedData: LoadedData = LoadedDataImpl
+    var currentFragmentIndex: Int = 0
+
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var bottomSheetView: ConstraintLayout
 
-
-    private val viewModel: PictureOfTheDayViewModel by lazy {
-        ViewModelProvider(this).get(PictureOfTheDayViewModel::class.java)
+    private val bottomSheetDescriptionHeader by lazy {
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description_header)
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.getData()
-            .observe(viewLifecycleOwner,  { renderData(it) })
+    private val bottomSheetDescription by lazy {
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description)
+    }
+    private val bottomSheetDate by lazy {
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_date)
+    }
+    private val bottomSheetCopyright by lazy {
+        bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_copyright)
     }
 
     override fun onCreateView(
@@ -51,7 +52,6 @@ class PictureOfTheDayFragment : Fragment() {
         it.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.run {
@@ -62,20 +62,26 @@ class PictureOfTheDayFragment : Fragment() {
             }
             bottomSheetView = root.findViewById(R.id.bottom_sheet_container)
             bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
-            viewPager.adapter = HistoryPageAdapter(childFragmentManager)
-//            chipGroupPictureDay.setOnCheckedChangeListener { _, checkedId ->
-//                viewModel.sendServerRequest(
-//                    getDate(when(checkedId) {
-//                        1 -> -2
-//                        2 -> -1
-//                        else -> 0}
-//                ))
-//            }
+            viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+                override fun onPageSelected(position: Int) {
+                    currentFragmentIndex = position
+                    renderData(loadedData.loadData(position))
+                }
+            })
+            HistoryPageAdapter(LoadedDataImpl, childFragmentManager).run {
+                viewPager.adapter = this
+                viewPager.currentItem = this.count
+            }
         }
-
         setBottomAppBar(view)
     }
 
+    override fun onDestroyView() {
+        binding?.run {
+            viewPager.clearOnPageChangeListeners()
+        }
+        super.onDestroyView()
+    }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_bottom_bar, menu)
@@ -84,6 +90,7 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.app_bar_bottom_sheet -> {
+                renderData(loadedData.loadData(currentFragmentIndex))
                 bottomSheetView.visibility = View.VISIBLE
                 changeBottomSheetState()
             }
@@ -91,7 +98,11 @@ class PictureOfTheDayFragment : Fragment() {
                 toast("Favourite")
             }
             R.id.app_bar_settings ->
-                parentFragmentManager.beginTransaction().add(R.id.container, SettingFragment()).addToBackStack(null).commit()
+                parentFragmentManager
+                        .beginTransaction()
+                        .add(R.id.container, SettingFragment())
+                        .addToBackStack(null)
+                        .commit()
             android.R.id.home -> {
                 activity?.let {
                     BottomNavigationDrawerFragment().show(it.supportFragmentManager, "tag")
@@ -101,39 +112,12 @@ class PictureOfTheDayFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun renderData(data: PictureOfTheDayData) {
-        when (data) {
-            is PictureOfTheDayData.Success -> {
-                val serverResponseData = data.serverResponseData
-                val url = serverResponseData.singleUrl
-                if (url.isNullOrEmpty()) {
-                    //showError("Сообщение, что ссылка пустая")
-                    toast("Link is empty")
-                } else {
-                    //showSuccess()
-                    binding?.run {
-//                        imageView.load(url) {
-//                            lifecycle(this@PictureOfTheDayFragment)
-//                            error(R.drawable.ic_load_error_vector)
-//                            placeholder(R.drawable.ic_no_photo_vector)
-//                        }
-                    }
-                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description_header).text =
-                            serverResponseData.title
-                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description).text =
-                            serverResponseData.explanation
-                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_date).text =
-                            serverResponseData.date
-                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_copyright).text =
-                            serverResponseData.copyright
-                }
-            }
-            is PictureOfTheDayData.Loading -> {
-                Log.d("myLOG", "renderData: ${data.progress}")
-            }
-            is PictureOfTheDayData.Error -> {
-                toast(data.error.message)
-            }
+    private fun renderData(data: PictureOfTheDayData.Success?) {
+        data?.run {
+            bottomSheetDescriptionHeader.text = serverResponseData.title
+            bottomSheetDescription.text = serverResponseData.explanation
+            bottomSheetDate.text = serverResponseData.date
+            bottomSheetCopyright.text = serverResponseData.copyright
         }
     }
 
@@ -173,8 +157,8 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
-    private fun toast(string: String?) {
-        Toast.makeText(context, string, Toast.LENGTH_SHORT).apply {
+    private fun toast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).apply {
             setGravity(Gravity.BOTTOM, 0, 250)
             show()
         }

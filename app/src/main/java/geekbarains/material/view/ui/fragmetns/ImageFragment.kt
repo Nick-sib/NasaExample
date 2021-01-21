@@ -1,7 +1,6 @@
 package geekbarains.material.view.ui.fragmetns
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +11,17 @@ import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import geekbarains.material.R
 import geekbarains.material.databinding.FragmentImageBinding
+import geekbarains.material.model.entity.LoadedData
+import geekbarains.material.model.entity.LoadedDataImpl
 import geekbarains.material.model.entity.PictureOfTheDayData
 import geekbarains.material.viewmodel.ImageViewModel
 
 class ImageFragment: Fragment() {
 
+    private val loadedData: LoadedData = LoadedDataImpl
     private var binding: FragmentImageBinding? = null
     private var paramDay: Int = 0
+    private var paramIndex: Int = 0
 
     private val viewModel: ImageViewModel by lazy {
         ViewModelProvider(this).get(ImageViewModel::class.java)
@@ -35,10 +38,14 @@ class ImageFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.run {
-            paramDay = getInt(EXTRA_DATA)
-            viewModel.getData(paramDay)
-                .observe(viewLifecycleOwner,  { renderData(it) })
-        }  ?: run {
+            paramDay = getInt(EXTRA_DATA_DAY)
+            paramIndex = getInt(EXTRA_DATA_INDEX)
+            loadedData.loadData(paramIndex)?.run {
+                renderData(this)
+            } ?: run {
+                viewModel.getData(paramDay).observe(viewLifecycleOwner,  { renderData(it) })
+            }
+        } ?: run {
             toast("Извините данные не переданы")
         }
         super.onViewCreated(view, savedInstanceState)
@@ -50,11 +57,10 @@ class ImageFragment: Fragment() {
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.singleUrl
                 if (url.isNullOrEmpty()) {
-                    //showError("Сообщение, что ссылка пустая")
                     toast("Link is empty")
                 } else {
-                    //showSuccess()
                     binding?.run {
+                        loadedData.saveData(paramIndex, data)
                         imageView.load(url) {
                             lifecycle(this@ImageFragment)
                             error(R.drawable.ic_load_error_vector)
@@ -72,7 +78,7 @@ class ImageFragment: Fragment() {
                 }
             }
             is PictureOfTheDayData.Loading -> {
-                Log.d("myLOG", "renderData: ${data.progress}")
+                //Log.d("myLOG", "renderData: ${data.progress}")
             }
             is PictureOfTheDayData.Error -> {
                 toast(data.error.message)
@@ -88,11 +94,13 @@ class ImageFragment: Fragment() {
     }
 
     companion object {
-        private val EXTRA_DATA = ImageFragment::class.java.name + "EXTRA_DATA"
+        private val EXTRA_DATA_DAY = ImageFragment::class.java.name + "EXTRA_DATA_DAY"
+        private val EXTRA_DATA_INDEX = ImageFragment::class.java.name + "EXTRA_DATA_INDEX"
 
-        fun instance(day: Int) = ImageFragment().apply {
+        fun instance(day: Int, index: Int) = ImageFragment().apply {
             arguments = Bundle().apply {
-                putInt(EXTRA_DATA, day)
+                putInt(EXTRA_DATA_DAY, day)
+                putInt(EXTRA_DATA_INDEX, index)
             }
         }
     }
