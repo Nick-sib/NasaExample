@@ -19,11 +19,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import geekbarains.material.R
 import geekbarains.material.databinding.MainFragmentBinding
 import geekbarains.material.model.entity.PictureOfTheDayData
-import geekbarains.material.model.entity.getDate
 import geekbarains.material.view.ui.MainActivity
+import geekbarains.material.view.ui.adapters.HistoryPageAdapter
 import geekbarains.material.viewmodel.PictureOfTheDayViewModel
 
-import java.util.*
+
 
 class PictureOfTheDayFragment : Fragment() {
 
@@ -62,15 +62,15 @@ class PictureOfTheDayFragment : Fragment() {
             }
             bottomSheetView = root.findViewById(R.id.bottom_sheet_container)
             bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
-
-            chipGroupPictureDay.setOnCheckedChangeListener { _, checkedId ->
-                viewModel.sendServerRequest(
-                    getDate(when(checkedId) {
-                        1 -> -2
-                        2 -> -1
-                        else -> 0}
-                ))
-            }
+            viewPager.adapter = HistoryPageAdapter(childFragmentManager)
+//            chipGroupPictureDay.setOnCheckedChangeListener { _, checkedId ->
+//                viewModel.sendServerRequest(
+//                    getDate(when(checkedId) {
+//                        1 -> -2
+//                        2 -> -1
+//                        else -> 0}
+//                ))
+//            }
         }
 
         setBottomAppBar(view)
@@ -112,11 +112,11 @@ class PictureOfTheDayFragment : Fragment() {
                 } else {
                     //showSuccess()
                     binding?.run {
-                        imageView.load(url) {
-                            lifecycle(this@PictureOfTheDayFragment)
-                            error(R.drawable.ic_load_error_vector)
-                            placeholder(R.drawable.ic_no_photo_vector)
-                        }
+//                        imageView.load(url) {
+//                            lifecycle(this@PictureOfTheDayFragment)
+//                            error(R.drawable.ic_load_error_vector)
+//                            placeholder(R.drawable.ic_no_photo_vector)
+//                        }
                     }
                     bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description_header).text =
                             serverResponseData.title

@@ -10,7 +10,6 @@
     android:background="@color/fragment_default_color"
     android:paddingBottom="@dimen/bottom_sheet_padding"
     android:visibility="gone"
-    tools:visibility="visible"
     app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
     app:behavior_hideable="true"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
