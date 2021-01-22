@@ -67,14 +67,6 @@ class ImageFragment: Fragment() {
                             placeholder(R.drawable.ic_no_photo_vector)
                         }
                     }
-//                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description_header).text =
-//                        serverResponseData.title
-//                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_description).text =
-//                        serverResponseData.explanation
-//                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_date).text =
-//                        serverResponseData.date
-//                    bottomSheetView.findViewById<TextView>(R.id.bottom_sheet_copyright).text =
-//                        serverResponseData.copyright
                 }
             }
             is PictureOfTheDayData.Loading -> {

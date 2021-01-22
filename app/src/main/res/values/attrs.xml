@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PageIndicatorView">
+        <attr name="radius" format="dimension" />
+        <attr name="penWidth" format="dimension" />
+        <attr name="maxOffset" format="dimension" />
+        <attr name="select">
+            <enum name="interaction" value="0" />
+            <enum name="single" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
