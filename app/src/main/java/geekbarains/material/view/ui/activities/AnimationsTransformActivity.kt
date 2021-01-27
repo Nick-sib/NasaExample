@@ -1,4 +1,4 @@
-package geekbarains.material.view.ui.activitys
+package geekbarains.material.view.ui.activities
 
 import android.os.Bundle
 import android.transition.ChangeBounds
@@ -7,11 +7,11 @@ import android.view.animation.AnticipateOvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import geekbarains.material.R
-import geekbarains.material.databinding.AnimationsBonusStartActivityBinding
+import geekbarains.material.databinding.AnimationsTransformStartActivityBinding
 
-class AnimationsActivityBonus: AppCompatActivity() {
+class AnimationsTransformActivity: AppCompatActivity() {
 
-    private lateinit var binding: AnimationsBonusStartActivityBinding
+    private lateinit var binding: AnimationsTransformStartActivityBinding
 
     private var show = false
 
@@ -19,9 +19,8 @@ class AnimationsActivityBonus: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = AnimationsBonusStartActivityBinding.inflate(layoutInflater)
+        binding = AnimationsTransformStartActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
 
         binding.backgroundImage.setOnClickListener {
@@ -37,7 +36,7 @@ class AnimationsActivityBonus: AppCompatActivity() {
         show = true
 
         val constraintSet = ConstraintSet()
-        constraintSet.clone(this, R.layout.animations_bonus_end_activity)
+        constraintSet.clone(this, R.layout.animations_transform_end_activity)
 
         val transition = ChangeBounds()
         transition.interpolator = AnticipateOvershootInterpolator(1.0f)
@@ -51,7 +50,7 @@ class AnimationsActivityBonus: AppCompatActivity() {
         show = false
 
         val constraintSet = ConstraintSet()
-        constraintSet.clone(this, R.layout.animations_bonus_start_activity)
+        constraintSet.clone(this, R.layout.animations_transform_start_activity)
 
         val transition = ChangeBounds()
         transition.interpolator = AnticipateOvershootInterpolator(1.0f)

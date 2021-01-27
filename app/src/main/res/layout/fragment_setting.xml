@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/default_offset_full"
-    android:background="@color/fragment_default_color">
+    android:background="@color/content_background_default_color">
 
     <TextView
         android:id="@+id/tv_choose_theme"

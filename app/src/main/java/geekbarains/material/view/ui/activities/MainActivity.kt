@@ -1,7 +1,6 @@
-package geekbarains.material.view.ui.activitys
+package geekbarains.material.view.ui.activities
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import geekbarains.material.App
 import geekbarains.material.R

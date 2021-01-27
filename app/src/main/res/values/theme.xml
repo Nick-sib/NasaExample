@@ -16,6 +16,8 @@
         <item name="android:forceDarkAllowed">true</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.DayNight.ActionBar" />
+
     <style name="DescriptionBodyStyle">
         <item name="android:paddingStart">@dimen/default_offset_full</item>
         <item name="android:paddingEnd">@dimen/default_offset_full</item>
