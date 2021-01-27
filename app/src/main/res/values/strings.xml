@@ -133,6 +133,10 @@
         "On the layout level, design your app layout to minimize opportunities for interference. "
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"</string>
+    <string name="s_plug_title">Кратер Даниэлсона</string>
+    <string name="s_plug_short_info">5 июня 2018 г.</string>
+    <string name="s_plug_tip1">Tap for info</string>
+    <string name="s_plug_description">На фото видно камни и песок в кратере Даниэлсона (диаметр кратера около 67 км), расположенного на юго-востоке области Arabia Terra.</string>
 
     <string-array name="s_days_names">
         <item>@string/s_eve_day</item>
