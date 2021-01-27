@@ -17,7 +17,7 @@ import geekbarains.material.databinding.MainFragmentBinding
 import geekbarains.material.model.entity.LoadedData
 import geekbarains.material.model.entity.LoadedDataImpl
 import geekbarains.material.model.entity.PictureOfTheDayData
-import geekbarains.material.view.ui.MainActivity
+import geekbarains.material.view.ui.activitys.MainActivity
 import geekbarains.material.view.ui.adapters.HistoryPageAdapter
 
 

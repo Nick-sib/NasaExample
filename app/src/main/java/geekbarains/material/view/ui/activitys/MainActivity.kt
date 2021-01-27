@@ -1,4 +1,4 @@
-package geekbarains.material.view.ui
+package geekbarains.material.view.ui.activitys
 
 import android.os.Bundle
 import android.util.Log

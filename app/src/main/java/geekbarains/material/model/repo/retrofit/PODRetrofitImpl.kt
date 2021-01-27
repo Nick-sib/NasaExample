@@ -26,7 +26,10 @@ class PODRetrofitImpl: PODRetrofit {
     private fun createOkHttpClient(interceptor: Interceptor): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.addInterceptor(interceptor)
-        httpClient.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpClient.addInterceptor(httpLoggingInterceptor.apply {
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        })
         return httpClient.build()
     }
 

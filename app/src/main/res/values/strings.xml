@@ -37,7 +37,7 @@
     <string name="chip_text_horizontal">horizontal</string>
     <string name="chip_text_scroll">scroll</string>
     <string name="chip_text_close_icon_listener">Close Icon Listener</string>
-    <string name="menu_text_screen_one">На экран 1</string>
+    <string name="menu_text_screen_one">Collapsing layout</string>
     <string name="menu_text_screen_two">На экран 2</string>
     <string name="fab_description">Demo button to show some actions</string>
     <string name="s_eve_day">Позавчера</string>
