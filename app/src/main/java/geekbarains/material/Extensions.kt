@@ -2,7 +2,6 @@ package geekbarains.material.model.entity
 
 import android.annotation.SuppressLint
 import android.os.Build
-import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
@@ -13,12 +12,11 @@ val locate: Locale = Locale.getDefault()
 val formatter = SimpleDateFormat("yyyy-MM-dd", locate)
 
 
-@RequiresApi(Build.VERSION_CODES.O)
-fun getDate(days: Int): String =  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-    LocalDate.now().plusDays(days.toLong()).toString()
+fun Int.getData(): String =  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    LocalDate.now().plusDays(this.toLong()).toString()
 } else {
     val date = Calendar.getInstance(locate).let {
-        it.add(Calendar.DATE, days)
+        it.add(Calendar.DATE, this)
         it.time
     }
     formatter.format(date)

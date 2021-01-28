@@ -34,11 +34,6 @@ class App: Application(){
     private fun saveStyle(value: Int) = saveKey(PREFS_KEY_THEME, value)
 
 
-//    private fun setTheme(themeMode: Int, prefsMode: Int) {
-//        AppCompatDelegate.setDefaultNightMode(themeMode)
-//        saveKey(PREFS_KEY_THEME, prefsMode)
-//    }
-
     var selectedTheme: Int = THEME_SYSTEM
         set(value) {
             if (value != field) {
@@ -55,8 +50,6 @@ class App: Application(){
             }
             field = value
         }
-
-
 
     override fun onCreate() {
         super.onCreate()

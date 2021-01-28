@@ -45,4 +45,10 @@
     <string name="s_today">Сегодня</string>
     <string name="s_apply">Применить</string>
 
+    <string-array name="s_days_names">
+        <item>@string/s_eve_day</item>
+        <item>@string/s_yesterday</item>
+        <item>@string/s_today</item>
+    </string-array>
+
 </resources>

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.chip.Chip
 import geekbarains.material.*
 import geekbarains.material.databinding.FragmentSettingBinding
 
@@ -27,6 +26,7 @@ class SettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding?.run{
             when (App.instance.selectedTheme) {
                 THEME_LIGHT -> chipThemeLight.isChecked = true

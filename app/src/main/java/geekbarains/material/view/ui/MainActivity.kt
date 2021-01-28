@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = MainActivityBinding.inflate(layoutInflater)
 
         setTheme(
                 when (App.instance.selectedStyle){
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
                     STYLE_TOXIC -> R.style.ToxicTheme
                     else -> R.style.AppTheme
                 } )
-        Log.d("myLOG", "onCreate: ${App.instance.selectedStyle}")
+        binding = MainActivityBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
