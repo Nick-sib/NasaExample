@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import geekbarains.material.BuildConfig
 import geekbarains.material.model.entity.PODServerResponseData
 import geekbarains.material.model.entity.PictureOfTheDayData
-import geekbarains.material.model.entity.getData
+import geekbarains.material.getData
 import geekbarains.material.model.repo.PODRetrofit
 import geekbarains.material.model.repo.retrofit.PODRetrofitImpl
 import retrofit2.Call
@@ -21,6 +21,43 @@ class ImageViewModel: ViewModel() {
     fun getData(day: Int = 0): LiveData<PictureOfTheDayData> {
         sendServerRequest(day.getData())
         return liveDataForViewToObserve
+    }
+
+    fun getData(): LiveData<PictureOfTheDayData> {
+        sendServerRequest()
+        return liveDataForViewToObserve
+    }
+
+    private fun sendServerRequest() {
+        liveDataForViewToObserve.value = PictureOfTheDayData.Loading(null)
+        val apiKey: String = BuildConfig.NASA_API_KEY
+        if (apiKey.isBlank()) {
+            produceError("You need API key")
+        } else {
+            retrofit.getRetrofitImpl().getPictureOfTheDay(apiKey).enqueue(
+                    object : Callback<PODServerResponseData> {
+                        override fun onResponse(
+                                call: Call<PODServerResponseData>,
+                                response: Response<PODServerResponseData>
+                        ) {
+                            if (response.isSuccessful) {
+                                response.body()?.run {
+                                    liveDataForViewToObserve.value =
+                                            PictureOfTheDayData.Success(this)
+                                } ?: run {
+                                    produceError(response.message())
+                                }
+                            } else {
+                                produceError(response.message())
+                            }
+                        }
+                        override fun onFailure(
+                                call: Call<PODServerResponseData>,
+                                t: Throwable
+                        ) = produceError(t.message)
+                    }
+            )
+        }
     }
 
     private fun sendServerRequest(date: String) {
