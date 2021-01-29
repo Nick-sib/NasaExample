@@ -42,11 +42,6 @@ class RecyclerViewActivity: AppCompatActivity() {
         setInitialState()
         binding.fab.setOnClickListener {
             isExpanded = !isExpanded
-//            if (isExpanded) {
-//                collapseFab()
-//            } else {
-//                expandFAB()
-//            }
         }
     }
 
@@ -69,7 +64,6 @@ class RecyclerViewActivity: AppCompatActivity() {
     }
 
     private fun expandFAB() {
-//        isExpanded = true
         binding.also {
             ObjectAnimator.ofFloat(it.plusImageview, "rotation", 0f, 225f).start()
             ObjectAnimator.ofFloat(it.optionOneContainer, "translationX", ANIM_LINEAR_OFFSET).start()
