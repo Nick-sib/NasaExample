@@ -16,9 +16,9 @@
     <color name="bottom_menu_dg">#FFF6F6FA</color>
     <color name="content_background_default_color">@color/cardview_light_background</color>
     <color name="info_bg">#663B4351</color>
-
     <color name="fragment_background">#FFFFFF</color>
 
+    <color name="background_contrast_default_color">#FF000000</color>
 
     <color name="shrine_pink_100">#B18EEA</color>
     <color name="shrine_pink_900">#8e7270</color>
