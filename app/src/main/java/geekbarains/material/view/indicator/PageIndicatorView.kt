@@ -69,7 +69,7 @@ class PageIndicatorView :
         style = Paint.Style.STROKE
         strokeWidth = strokeWidth
         isAntiAlias = true
-        color = Color.WHITE
+        color = Color.GRAY
     }
 
     constructor(context: Context) : this(context, null)

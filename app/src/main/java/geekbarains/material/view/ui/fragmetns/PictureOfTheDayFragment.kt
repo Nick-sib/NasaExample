@@ -19,6 +19,7 @@ import geekbarains.material.model.entity.LoadedDataImpl
 import geekbarains.material.model.entity.PictureOfTheDayData
 import geekbarains.material.view.ui.activities.MainActivity
 import geekbarains.material.view.ui.adapters.HistoryPageAdapter
+import geekbarains.material.view.ui.adapters.ZoomOutPageTransformer
 
 
 class PictureOfTheDayFragment : Fragment() {
@@ -62,6 +63,7 @@ class PictureOfTheDayFragment : Fragment() {
             }
             bottomSheetView = root.findViewById(R.id.bottom_sheet_container)
             bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView)
+            viewPager.setPageTransformer(true, ZoomOutPageTransformer())
             viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
                 override fun onPageSelected(position: Int) {
                     currentFragmentIndex = position
