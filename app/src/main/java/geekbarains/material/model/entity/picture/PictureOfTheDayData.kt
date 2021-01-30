@@ -1,4 +1,4 @@
-package geekbarains.material.model.entity
+package geekbarains.material.model.entity.picture
 
 sealed class PictureOfTheDayData {
     data class Success(val serverResponseData: PODServerResponseData) : PictureOfTheDayData()

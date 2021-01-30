@@ -1,4 +1,4 @@
-package geekbarains.material.view.ui.adapters
+package geekbarains.material.view.ui.adapters.page.adapter
 
 import android.view.View
 import androidx.viewpager.widget.ViewPager

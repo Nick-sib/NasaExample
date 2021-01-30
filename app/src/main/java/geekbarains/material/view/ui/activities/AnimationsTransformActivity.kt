@@ -3,7 +3,6 @@ package geekbarains.material.view.ui.activities
 import android.os.Bundle
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.Gravity
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.Toast
@@ -14,9 +13,7 @@ import coil.api.load
 import geekbarains.material.DESCRIPTION_LENGTH
 import geekbarains.material.R
 import geekbarains.material.databinding.AnimationsTransformStartActivityBinding
-import geekbarains.material.model.entity.LoadedData
-import geekbarains.material.model.entity.LoadedDataImpl
-import geekbarains.material.model.entity.PictureOfTheDayData
+import geekbarains.material.model.entity.picture.PictureOfTheDayData
 import geekbarains.material.viewmodel.ImageViewModel
 
 

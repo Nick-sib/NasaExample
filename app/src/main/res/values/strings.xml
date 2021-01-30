@@ -138,6 +138,11 @@
     <string name="s_plug_tip1">Tap for info</string>
     <string name="s_plug_description">На фото видно камни и песок в кратере Даниэлсона (диаметр кратера около 67 км), расположенного на юго-востоке области Arabia Terra.</string>
     <string name="menu_text_screen_three">Recycler View</string>
+    <string name="s_earth">Земля</string>
+    <string name="s_jupiter">Юпитер</string>
+    <string name="s_header">Заголовок</string>
+    <string name="s_jupiter_description">Юпи́тер — крупнейшая планета Солнечной системы, пятая по удалённости от Солнца. Наряду с Сатурном, Ураном и Нептуном, Юпитер классифицируется как газовый гигант.</string>
+    <string name="s_mars">Марс</string>
 
     <string-array name="s_days_names">
         <item>@string/s_eve_day</item>

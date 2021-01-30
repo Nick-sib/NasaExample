@@ -8,6 +8,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import geekbarains.material.databinding.RecyclerviewActivityBinding
+import geekbarains.material.model.entity.DataPlanet
+import geekbarains.material.model.entity.PLANET_TYPE_MARS
+import geekbarains.material.view.ui.adapters.recyclerview.adapter.PlanetsRecyclerviewAdapter
 
 
 private const val ANIM_DURATION = 300L
@@ -18,6 +21,8 @@ private const val NONTRANSPARENT_ALPHA = 1f
 private const val TRANSPARENT_ALPHA = 0f
 
 class RecyclerViewActivity: AppCompatActivity() {
+
+    private lateinit var adapter: PlanetsRecyclerviewAdapter
 
     private var isExpanded = false
         set(value) {
@@ -33,9 +38,7 @@ class RecyclerViewActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         setFAB()
-//        binding.scroll_view.setOnScrollChangeListener { _, _, _, _, _ ->
-//            toolbar.isSelected = scroll_view.canScrollVertically(-1)
-//        }
+        setAdapter()
     }
 
     private fun setFAB() {
@@ -43,6 +46,19 @@ class RecyclerViewActivity: AppCompatActivity() {
         binding.fab.setOnClickListener {
             isExpanded = !isExpanded
         }
+    }
+
+    private fun setAdapter() {
+        val data = arrayListOf(
+            Pair(DataPlanet(0, "Header"), false),
+            Pair(DataPlanet(1, "Mars", "", PLANET_TYPE_MARS), false),
+        )
+
+        adapter = PlanetsRecyclerviewAdapter(
+            data,
+        )
+        binding.recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     private fun setInitialState() {
@@ -105,7 +121,6 @@ class RecyclerViewActivity: AppCompatActivity() {
 
 
     private fun collapseFab() {
-//        isExpanded = false
         binding.also {
             ObjectAnimator.ofFloat(it.plusImageview, "rotation", 0f, -180f).start()
             ObjectAnimator.ofFloat(it.optionTwoContainer, "translationY", 0f).start()
