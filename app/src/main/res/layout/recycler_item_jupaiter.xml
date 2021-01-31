@@ -45,7 +45,6 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="@string/s_jupiter_description"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_const_jupiter"
@@ -55,6 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/background_contrast_default_color"
-        app:layout_constraintBottom_toBottomOf="@id/iv_const_jupiter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package geekbarains.material.view.ui.adapters.recyclerview.adapter
+package geekbarains.material.view.ui.adapters.recyclerview.adapter.holders
 
 
 import android.view.View

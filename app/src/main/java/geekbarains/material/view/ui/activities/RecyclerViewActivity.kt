@@ -5,11 +5,19 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import geekbarains.material.databinding.RecyclerviewActivityBinding
+import geekbarains.material.getEarthDescription
+import geekbarains.material.getEarthTitle
 import geekbarains.material.model.entity.DataPlanet
+import geekbarains.material.model.entity.PLANET_TYPE_EARTH
+import geekbarains.material.model.entity.PLANET_TYPE_JUPITER
 import geekbarains.material.model.entity.PLANET_TYPE_MARS
+import geekbarains.material.view.ui.adapters.recyclerview.adapter.ItemTouchHelperCallback
+import geekbarains.material.view.ui.adapters.recyclerview.adapter.interfaces.OnStartDragListener
 import geekbarains.material.view.ui.adapters.recyclerview.adapter.PlanetsRecyclerviewAdapter
 
 
@@ -23,6 +31,7 @@ private const val TRANSPARENT_ALPHA = 0f
 class RecyclerViewActivity: AppCompatActivity() {
 
     private lateinit var adapter: PlanetsRecyclerviewAdapter
+    private lateinit var itemTouchHelper: ItemTouchHelper
 
     private var isExpanded = false
         set(value) {
@@ -56,7 +65,16 @@ class RecyclerViewActivity: AppCompatActivity() {
 
         adapter = PlanetsRecyclerviewAdapter(
             data,
+            {showMessage(it)},
+            object : OnStartDragListener {
+                override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
+                    itemTouchHelper.startDrag(viewHolder)
+                }
+            }
         )
+
+        itemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(adapter))
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
         binding.recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }
@@ -65,15 +83,15 @@ class RecyclerViewActivity: AppCompatActivity() {
         binding.transparentBackground.apply {
             alpha = TRANSPARENT_ALPHA
         }
-        binding.optionOneContainer.apply {
+        binding.optionMarsContainer.apply {
             alpha = TRANSPARENT_ALPHA
             isClickable = false
         }
-        binding.optionTwoContainer.apply {
+        binding.optionEarthContainer.apply {
             alpha = TRANSPARENT_ALPHA
             isClickable = false
         }
-        binding.optionThreeContainer.apply {
+        binding.optionJupiterContainer.apply {
             alpha = TRANSPARENT_ALPHA
             isClickable = false
         }
@@ -82,24 +100,34 @@ class RecyclerViewActivity: AppCompatActivity() {
     private fun expandFAB() {
         binding.also {
             ObjectAnimator.ofFloat(it.plusImageview, "rotation", 0f, 225f).start()
-            ObjectAnimator.ofFloat(it.optionOneContainer, "translationX", ANIM_LINEAR_OFFSET).start()
-            ObjectAnimator.ofFloat(it.optionTwoContainer, "translationY", ANIM_LINEAR_OFFSET).start()
-            ObjectAnimator.ofFloat(it.optionThreeContainer, "translationY", ANIM_ANGLE_OFFSET).start()
-            ObjectAnimator.ofFloat(it.optionThreeContainer, "translationX", ANIM_ANGLE_OFFSET).start()
+            ObjectAnimator.ofFloat(it.optionMarsContainer, "translationX", ANIM_LINEAR_OFFSET).start()
+            ObjectAnimator.ofFloat(it.optionEarthContainer, "translationY", ANIM_LINEAR_OFFSET).start()
+            ObjectAnimator.ofFloat(it.optionJupiterContainer, "translationY", ANIM_ANGLE_OFFSET).start()
+            ObjectAnimator.ofFloat(it.optionJupiterContainer, "translationX", ANIM_ANGLE_OFFSET).start()
 
-            doAnimation(it.optionThreeContainer, NONTRANSPARENT_ALPHA, true) {
-                Toast.makeText(this@RecyclerViewActivity, "Option 3", Toast.LENGTH_SHORT)
-                        .show()
+            doAnimation(it.optionJupiterContainer, NONTRANSPARENT_ALPHA, true) {
+                adapter.addItem(
+                        DataPlanet(
+                                type = PLANET_TYPE_JUPITER
+                        ))
             }
-            doAnimation(it.optionTwoContainer, NONTRANSPARENT_ALPHA, true) {
-                Toast.makeText(this@RecyclerViewActivity, "Option 2", Toast.LENGTH_SHORT)
-                        .show()
+            doAnimation(it.optionEarthContainer, NONTRANSPARENT_ALPHA, true) {
+                adapter.addItem(
+                        DataPlanet(
+                                someText = getEarthTitle(),
+                                someDescription = getEarthDescription(),
+                                type = PLANET_TYPE_EARTH
+                        ))
             }
-            doAnimation(it.optionOneContainer, NONTRANSPARENT_ALPHA, true) {
-                Toast.makeText(this@RecyclerViewActivity, "Option 1", Toast.LENGTH_SHORT)
-                        .show()
+            doAnimation(it.optionMarsContainer, NONTRANSPARENT_ALPHA, true) {
+                adapter.addItem(
+                        DataPlanet(
+                                type = PLANET_TYPE_MARS
+                        ))
             }
-            doAnimation(it.transparentBackground, BACKGROUND_ALPHA, true)
+            doAnimation(it.transparentBackground, BACKGROUND_ALPHA, true) {
+                isExpanded = false
+            }
         }
     }
 
@@ -123,15 +151,24 @@ class RecyclerViewActivity: AppCompatActivity() {
     private fun collapseFab() {
         binding.also {
             ObjectAnimator.ofFloat(it.plusImageview, "rotation", 0f, -180f).start()
-            ObjectAnimator.ofFloat(it.optionTwoContainer, "translationY", 0f).start()
-            ObjectAnimator.ofFloat(it.optionOneContainer, "translationX", 0f).start()
-            ObjectAnimator.ofFloat(it.optionThreeContainer, "translationY", 0f).start()
-            ObjectAnimator.ofFloat(it.optionThreeContainer, "translationX", 0f).start()
+            ObjectAnimator.ofFloat(it.optionEarthContainer, "translationY", 0f).start()
+            ObjectAnimator.ofFloat(it.optionMarsContainer, "translationX", 0f).start()
+            ObjectAnimator.ofFloat(it.optionJupiterContainer, "translationY", 0f).start()
+            ObjectAnimator.ofFloat(it.optionJupiterContainer, "translationX", 0f).start()
 
-            doAnimation(it.optionOneContainer, TRANSPARENT_ALPHA, false)
-            doAnimation(it.optionTwoContainer, TRANSPARENT_ALPHA, false)
-            doAnimation(it.optionThreeContainer, TRANSPARENT_ALPHA, false)
-            doAnimation(it.transparentBackground, TRANSPARENT_ALPHA, true)
+            doAnimation(it.optionMarsContainer, TRANSPARENT_ALPHA, false)
+            doAnimation(it.optionEarthContainer, TRANSPARENT_ALPHA, false)
+            doAnimation(it.optionJupiterContainer, TRANSPARENT_ALPHA, false)
+            doAnimation(it.transparentBackground, TRANSPARENT_ALPHA, false)
+        }
+    }
+
+    private fun showMessage(text: String) {
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_INDEFINITE).apply {
+            setAction("Ok"){
+                this.dismiss()
+            }
+            show()
         }
     }
 

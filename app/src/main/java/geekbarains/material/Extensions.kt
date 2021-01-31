@@ -7,6 +7,11 @@ import java.time.LocalDate
 import java.util.*
 
 const val DESCRIPTION_LENGTH = 250
+val EARTH_TITLE = arrayOf(
+        "Tokë","Earth","Lurra","Зямля","Zemlja","Föld","Terra","γη","ערד","Jörðin","žemė","Земља","지구")
+val EARTH_DESCRIPTION = arrayOf(
+        "В смысле грунт и почва","Как суша в противоположность морю","Одна из мировых стихий в алхимии",
+        "Сыпучие и глинистые горные породы","Земельный участок, территория","Земля — экономический ресурс")
 
 @SuppressLint("ConstantLocale")
 val locate: Locale = Locale.getDefault()
@@ -22,3 +27,6 @@ fun Int.getData(): String =  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
     }
     formatter.format(date)
 }
+
+fun getEarthTitle() = EARTH_TITLE.random()
+fun getEarthDescription() = EARTH_DESCRIPTION.random()
