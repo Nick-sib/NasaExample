@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import geekbarains.material.R
 import geekbarains.material.model.entity.*
 import geekbarains.material.view.ui.adapters.recyclerview.adapter.holders.*
+import geekbarains.material.view.ui.adapters.recyclerview.adapter.interfaces.IDataInteract
 import geekbarains.material.view.ui.adapters.recyclerview.adapter.interfaces.ItemTouchHelperAdapter
 import geekbarains.material.view.ui.adapters.recyclerview.adapter.interfaces.OnStartDragListener
 
@@ -15,6 +16,43 @@ class PlanetsRecyclerviewAdapter(
         private val doShowText: ((text: String) -> Unit),
         private val dragListener: OnStartDragListener
 ): RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
+
+    private val dataInteract = object : IDataInteract {
+        override fun addItem(position: Int) {
+            data.add(
+                position,
+                Pair(DataPlanet(type = PLANET_TYPE_MARS), false)
+            )
+            notifyItemInserted(position)
+        }
+
+        override fun removeItem(position: Int) {
+            data.removeAt(position)
+            notifyItemRemoved(position)
+        }
+
+        override fun moveUp(position: Int) {
+            if (position > 1 ) {
+                data.removeAt(position).apply {
+                    data.add(position - 1, this)
+                }
+            notifyItemMoved(position, position - 1)
+            } else {
+                doShowText("Извините, выше не движется")
+            }
+        }
+
+        override fun moveDown(position: Int) {
+            if (position < data.size - 1) {
+                data.removeAt(position).apply {
+                    data.add(position + 1, this)
+                }
+                notifyItemMoved(position, position + 1)
+            } else {
+                doShowText("Извините, ниже не движется")
+            }
+        }
+    }
 
     fun addItem(dataPlanet: DataPlanet){
         data.add(Pair(dataPlanet, false))
@@ -31,7 +69,9 @@ class PlanetsRecyclerviewAdapter(
                 )
             PLANET_TYPE_MARS ->
                 MarsViewHolder(
-                    inflater.inflate(R.layout.recycler_item_mars, parent, false) as View
+                    inflater.inflate(R.layout.recycler_item_mars, parent, false) as View,
+                    dragListener,
+                    dataInteract
                 )
             PLANET_TYPE_JUPITER ->
                 JupiterViewHolder(

@@ -1,72 +1,52 @@
 package geekbarains.material.view.ui.adapters.recyclerview.adapter.holders
 
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import geekbarains.material.R
 import geekbarains.material.model.entity.DataPlanet
+import geekbarains.material.view.ui.adapters.recyclerview.adapter.interfaces.IDataInteract
+import geekbarains.material.view.ui.adapters.recyclerview.adapter.interfaces.ItemTouchHelperViewHolder
+import geekbarains.material.view.ui.adapters.recyclerview.adapter.interfaces.OnStartDragListener
 
-class MarsViewHolder(view: View) : BaseViewHolder(view) {
+class MarsViewHolder(
+    view: View,
+    private val dragListener: OnStartDragListener,
+    private val dataInteract: IDataInteract
+) : BaseViewHolder(view), ItemTouchHelperViewHolder {
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun bind(dataItem: Pair<DataPlanet, Boolean>) {
-//        itemView.marsImageView.setOnClickListener { onListItemClickListener.onItemClick(dataItem.first) }
-//        itemView.addItemImageView.setOnClickListener { addItem() }
-//        itemView.removeItemImageView.setOnClickListener { removeItem() }
-//        itemView.moveItemDown.setOnClickListener { moveDown() }
-//        itemView.moveItemUp.setOnClickListener { moveUp() }
-        itemView.findViewById<TextView>(R.id.tv_description)?.visibility =
-            if (dataItem.second) View.VISIBLE else View.GONE
-//        itemView.marsTextView.setOnClickListener { toggleText() }
-//        itemView.dragHandleImageView.setOnTouchListener { _, event ->
-//            if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
-//                dragListener.onStartDrag(this)
-//            }
-//            false
-//        }
+        itemView.findViewById<ImageView>(R.id.iv_add).setOnClickListener {
+            dataInteract.addItem(layoutPosition)
+        }
+        itemView.findViewById<ImageView>(R.id.iv_remove).setOnClickListener {
+            dataInteract.removeItem(layoutPosition)
+        }
+        itemView.findViewById<ImageView>(R.id.iv_move_down).setOnClickListener {
+            dataInteract.moveDown(layoutPosition)
+        }
+        itemView.findViewById<ImageView>(R.id.iv_move_up).setOnClickListener {
+            dataInteract.moveUp(layoutPosition)
+        }
+        itemView.findViewById<ImageView>(R.id.iv_drag_handle).setOnTouchListener { _, event ->
+            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
+                dragListener.onStartDrag(this)
+            }
+            false
+        }
     }
 
-//    private fun addItem() {
-//        data.add(layoutPosition, generateItem())
-//        notifyItemInserted(layoutPosition)
-//    }
-//
-//    private fun removeItem() {
-//        data.removeAt(layoutPosition)
-//        notifyItemRemoved(layoutPosition)
-//    }
-//
-//    private fun moveUp() {
-//        layoutPosition.takeIf { it > 1 }?.also { currentPosition ->
-//            data.removeAt(currentPosition).apply {
-//                data.add(currentPosition - 1, this)
-//            }
-//            notifyItemMoved(currentPosition, currentPosition - 1)
-//        }
-//    }
-//
-//    private fun moveDown() {
-//        layoutPosition.takeIf { it < data.size - 1 }?.also { currentPosition ->
-//            data.removeAt(currentPosition).apply {
-//                data.add(currentPosition + 1, this)
-//            }
-//            notifyItemMoved(currentPosition, currentPosition + 1)
-//        }
-//    }
-//
-//    private fun toggleText() {
-//        data[layoutPosition] = data[layoutPosition].let {
-//            it.first to !it.second
-//        }
-//        notifyItemChanged(layoutPosition)
-//    }
-//
-//    override fun onItemSelected() {
-//        itemView.setBackgroundColor(Color.LTGRAY)
-//    }
-//
-//    override fun onItemClear() {
-//        itemView.setBackgroundColor(Color.WHITE)
-//    }
+    override fun onItemSelected() {
+        itemView.setBackgroundColor(Color.LTGRAY)
+    }
 
+    override fun onItemClear() {
+        itemView.setBackgroundColor(android.R.attr.background)
+    }
 
 }

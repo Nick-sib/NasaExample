@@ -164,7 +164,7 @@ class RecyclerViewActivity: AppCompatActivity() {
     }
 
     private fun showMessage(text: String) {
-        Snackbar.make(binding.root, text, Snackbar.LENGTH_INDEFINITE).apply {
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG).apply {
             setAction("Ok"){
                 this.dismiss()
             }
