@@ -9,16 +9,6 @@
     <string name="search">Search</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="chip_text_default">Default</string>
-    <string name="chip_text_entry">Entry</string>
-    <string name="chip_text_choice">Choice</string>
-    <string name="chip_text_action">Action</string>
-    <string name="chip_text_filter">Filter</string>
-    <string name="chip_text_background_color">Background Color</string>
-    <string name="chip_text_ripple_color">Ripple Color</string>
-    <string name="chip_text_chip_icon">Chip icon</string>
-    <string name="chip_text_one">One</string>
-    <string name="chip_text_two">Two</string>
     <string name="tv_text_choose_theme">Выберите тему</string>
     <string name="tv_text_choose_style">Выберите стиль</string>
     <string name="chip_text_theme_day">Дневная</string>
@@ -27,23 +17,9 @@
 
     <string name="chip_text_style_default">Стандарт</string>
     <string name="chip_text_style_toxic">Ядовитый</string>
-    <string name="chip_text_chip">Chip</string>
-    <string name="chip_text_group">Group</string>
-    <string name="chip_text_in">in</string>
-    <string name="chip_text_single">single</string>
-    <string name="chip_text_line">line</string>
-    <string name="chip_text_add">add</string>
-    <string name="chip_text_a">a</string>
-    <string name="chip_text_horizontal">horizontal</string>
-    <string name="chip_text_scroll">scroll</string>
-    <string name="chip_text_close_icon_listener">Close Icon Listener</string>
     <string name="menu_text_screen_one">Collapsing layout</string>
     <string name="menu_text_screen_two">Motion  layout</string>
     <string name="fab_description">Demo button to show some actions</string>
-    <string name="s_eve_day">Позавчера</string>
-    <string name="s_yesterday">Вчера</string>
-    <string name="s_today">Сегодня</string>
-    <string name="s_apply">Применить</string>
     <string name="default_image_description">просто картинка</string>
 
     <string name="large_text">"Material is the metaphor.\n\n"
@@ -143,11 +119,6 @@
     <string name="s_header">Заголовок</string>
     <string name="s_jupiter_description">Юпи́тер — крупнейшая планета Солнечной системы, пятая по удалённости от Солнца. Наряду с Сатурном, Ураном и Нептуном, Юпитер классифицируется как газовый гигант.</string>
     <string name="s_mars">Марс</string>
-
-    <string-array name="s_days_names">
-        <item>@string/s_eve_day</item>
-        <item>@string/s_yesterday</item>
-        <item>@string/s_today</item>
-    </string-array>
+    <string name="s_chip_other_style">Чип с другим стилем</string>
 
 </resources>

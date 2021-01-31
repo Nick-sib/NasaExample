@@ -13,7 +13,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="color_gray">#66000000</color>
     <color name="color_black">#FF000000</color>
-    <color name="bottom_menu_dg">#FFF6F6FA</color>
     <color name="content_background_default_color">@color/cardview_light_background</color>
     <color name="info_bg">#663B4351</color>
     <color name="fragment_background">#FFFFFF</color>

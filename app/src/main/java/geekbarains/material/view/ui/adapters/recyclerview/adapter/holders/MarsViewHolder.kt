@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import geekbarains.material.R
 import geekbarains.material.model.entity.DataPlanet
 import geekbarains.material.view.ui.adapters.recyclerview.adapter.interfaces.IDataInteract
