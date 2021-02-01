@@ -3,6 +3,7 @@ package geekbarains.material.view.ui.adapters.recyclerview.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import geekbarains.material.R
 import geekbarains.material.model.entity.*
@@ -52,6 +53,14 @@ class PlanetsRecyclerviewAdapter(
                 doShowText("Извините, ниже не движется")
             }
         }
+    }
+
+
+    fun setData(newItems: List<Pair<DataPlanet, Boolean>>) {
+        val result = DiffUtil.calculateDiff(DiffUtilCallback(data, newItems))
+        result.dispatchUpdatesTo(this)
+        data.clear()
+        data.addAll(newItems)
     }
 
     fun addItem(dataPlanet: DataPlanet){

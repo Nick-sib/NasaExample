@@ -36,7 +36,6 @@ class AnimationsTransformActivity: AppCompatActivity() {
         iniView()
     }
 
-
     private fun iniView(){
         with(binding){
             backgroundImage.setOnClickListener {
