@@ -1,4 +1,4 @@
-package geekbarains.material.model.entity
+package geekbarains.material
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
+const val DESCRIPTION_LENGTH = 250
 
 @SuppressLint("ConstantLocale")
 val locate: Locale = Locale.getDefault()

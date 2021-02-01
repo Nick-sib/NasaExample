@@ -7,7 +7,7 @@
     android:id="@+id/bottom_sheet_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/fragment_default_color"
+    android:background="@color/content_background_default_color"
     android:paddingBottom="@dimen/bottom_sheet_padding"
     android:visibility="gone"
     app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
