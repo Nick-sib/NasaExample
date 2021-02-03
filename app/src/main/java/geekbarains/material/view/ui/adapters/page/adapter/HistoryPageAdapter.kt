@@ -1,14 +1,14 @@
-package geekbarains.material.view.ui.adapters
+package geekbarains.material.view.ui.adapters.page.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import geekbarains.material.model.entity.LoadedData
+import geekbarains.material.model.entity.picture.LoadedData
 import geekbarains.material.view.ui.fragmetns.ImageFragment
 
 class HistoryPageAdapter(
-    private val data: LoadedData,
-    fm: FragmentManager
+        private val data: LoadedData,
+        fm: FragmentManager
 ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
 

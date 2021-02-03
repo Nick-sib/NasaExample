@@ -2,16 +2,13 @@ package geekbarains.material.view.ui.activities
 
 import android.os.Bundle
 import android.view.Gravity
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import coil.api.load
-import geekbarains.material.DESCRIPTION_LENGTH
 import geekbarains.material.R
 import geekbarains.material.databinding.MotionActivityBinding
-import geekbarains.material.model.entity.PictureOfTheDayData
+import geekbarains.material.model.entity.picture.PictureOfTheDayData
 import geekbarains.material.viewmodel.ImageViewModel
 
 class AnimationsMotionActivity: AppCompatActivity() {//R.layout.motion_activity

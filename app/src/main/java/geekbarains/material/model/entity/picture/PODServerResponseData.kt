@@ -1,4 +1,4 @@
-package geekbarains.material.model.entity
+package geekbarains.material.model.entity.picture
 
 import com.google.gson.annotations.SerializedName
 

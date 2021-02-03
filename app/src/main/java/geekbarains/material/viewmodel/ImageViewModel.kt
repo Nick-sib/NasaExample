@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import geekbarains.material.BuildConfig
-import geekbarains.material.model.entity.PODServerResponseData
-import geekbarains.material.model.entity.PictureOfTheDayData
+import geekbarains.material.model.entity.picture.PODServerResponseData
+import geekbarains.material.model.entity.picture.PictureOfTheDayData
 import geekbarains.material.getData
 import geekbarains.material.model.repo.PODRetrofit
 import geekbarains.material.model.repo.retrofit.PODRetrofitImpl
@@ -69,8 +69,8 @@ class ImageViewModel: ViewModel() {
             retrofit.getRetrofitImpl().getPictureOfTheDay(date, apiKey).enqueue(
                 object : Callback<PODServerResponseData> {
                     override fun onResponse(
-                        call: Call<PODServerResponseData>,
-                        response: Response<PODServerResponseData>
+                            call: Call<PODServerResponseData>,
+                            response: Response<PODServerResponseData>
                     ) {
                         if (response.isSuccessful) {
                             response.body()?.run {
@@ -84,8 +84,8 @@ class ImageViewModel: ViewModel() {
                         }
                     }
                     override fun onFailure(
-                        call: Call<PODServerResponseData>,
-                        t: Throwable
+                            call: Call<PODServerResponseData>,
+                            t: Throwable
                     ) = produceError(t.message)
                 }
             )

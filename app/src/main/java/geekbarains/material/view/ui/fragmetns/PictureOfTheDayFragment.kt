@@ -14,13 +14,12 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import geekbarains.material.R
 import geekbarains.material.databinding.MainFragmentBinding
-import geekbarains.material.model.entity.LoadedData
-import geekbarains.material.model.entity.LoadedDataImpl
-import geekbarains.material.model.entity.PictureOfTheDayData
+import geekbarains.material.model.entity.picture.LoadedData
+import geekbarains.material.model.entity.picture.LoadedDataImpl
+import geekbarains.material.model.entity.picture.PictureOfTheDayData
 import geekbarains.material.view.ui.activities.MainActivity
-import geekbarains.material.view.ui.adapters.DepthPageTransformer
-import geekbarains.material.view.ui.adapters.HistoryPageAdapter
-import geekbarains.material.view.ui.adapters.ZoomOutPageTransformer
+import geekbarains.material.view.ui.adapters.page.adapter.DepthPageTransformer
+import geekbarains.material.view.ui.adapters.page.adapter.HistoryPageAdapter
 
 
 class PictureOfTheDayFragment : Fragment() {

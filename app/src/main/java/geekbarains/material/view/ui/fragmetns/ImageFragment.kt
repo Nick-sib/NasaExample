@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import geekbarains.material.R
 import geekbarains.material.databinding.FragmentImageBinding
-import geekbarains.material.model.entity.LoadedData
-import geekbarains.material.model.entity.LoadedDataImpl
-import geekbarains.material.model.entity.PictureOfTheDayData
+import geekbarains.material.model.entity.picture.LoadedData
+import geekbarains.material.model.entity.picture.LoadedDataImpl
+import geekbarains.material.model.entity.picture.PictureOfTheDayData
 import geekbarains.material.viewmodel.ImageViewModel
 
 class ImageFragment: Fragment() {

@@ -1,4 +1,4 @@
-package geekbarains.material.model.entity
+package geekbarains.material.model.entity.picture
 
 object LoadedDataImpl: LoadedData {
     private val titles = arrayOf("Позавчера", "Вчера", "Сегодня")

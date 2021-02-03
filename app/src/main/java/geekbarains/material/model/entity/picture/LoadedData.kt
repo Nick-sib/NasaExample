@@ -1,4 +1,4 @@
-package geekbarains.material.model.entity
+package geekbarains.material.model.entity.picture
 
 interface LoadedData {
     fun getCount(): Int
