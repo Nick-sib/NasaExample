@@ -52,8 +52,7 @@
                 app:penWidth="2dp"
                 app:radius="6dp"
                 app:select="interaction"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     <include

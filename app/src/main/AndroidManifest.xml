@@ -21,5 +21,6 @@
         </activity>
         <activity android:name=".view.ui.activities.AnimationsTransformActivity"/>
         <activity android:name=".view.ui.activities.AnimationsMotionActivity"/>
+        <activity android:name=".view.ui.activities.RecyclerViewActivity"/>
     </application>
 </manifest>

@@ -10,6 +10,7 @@ import geekbarains.material.R
 import geekbarains.material.databinding.BottomNavigationLayoutBinding
 import geekbarains.material.view.ui.activities.AnimationsMotionActivity
 import geekbarains.material.view.ui.activities.AnimationsTransformActivity
+import geekbarains.material.view.ui.activities.RecyclerViewActivity
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
@@ -37,6 +38,11 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
                     R.id.navigation_two ->  activity?.let {
                         startActivity(
                                 Intent(it, AnimationsMotionActivity::class.java)
+                        )
+                    }
+                    R.id.navigation_three ->  activity?.let {
+                        startActivity(
+                                Intent(it, RecyclerViewActivity::class.java)
                         )
                     }
                 }
