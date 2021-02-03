@@ -21,11 +21,14 @@
     <style name="DescriptionBodyStyle">
         <item name="android:paddingStart">@dimen/default_offset_full</item>
         <item name="android:paddingEnd">@dimen/default_offset_full</item>
+        <item name="android:fontFamily">@font/aladin</item>
     </style>
 
     <style name="DescriptionHeaderStyle" parent="DescriptionBodyStyle">
-        <item name="android:textColor">@color/color_black</item>
+        <item name="android:textColor">@color/background_contrast_default_color</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/aladin</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:layout_marginTop">@dimen/default_offset_half</item>
     </style>
 

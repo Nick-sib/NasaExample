@@ -117,7 +117,9 @@ class PictureOfTheDayFragment : Fragment() {
     private fun renderData(data: PictureOfTheDayData.Success?) {
         data?.run {
             bottomSheetDescriptionHeader.text = serverResponseData.title
+
             bottomSheetDescription.text = serverResponseData.explanation
+
             bottomSheetDate.text = serverResponseData.date
             bottomSheetCopyright.text = serverResponseData.copyright
         }
