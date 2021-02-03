@@ -1,8 +1,13 @@
 package geekbarains.material.view.ui.fragmetns
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -14,6 +19,7 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import geekbarains.material.R
 import geekbarains.material.databinding.MainFragmentBinding
+import geekbarains.material.model.entity.SPAN_DESCRIPTION
 import geekbarains.material.model.entity.picture.LoadedData
 import geekbarains.material.model.entity.picture.LoadedDataImpl
 import geekbarains.material.model.entity.picture.PictureOfTheDayData
@@ -118,7 +124,31 @@ class PictureOfTheDayFragment : Fragment() {
         data?.run {
             bottomSheetDescriptionHeader.text = serverResponseData.title
 
-            bottomSheetDescription.text = serverResponseData.explanation
+
+            val spannable = SpannableStringBuilder(serverResponseData.explanation)
+
+
+            var workText = serverResponseData.explanation.toLowerCase()
+            SPAN_DESCRIPTION.forEach { spanWorld ->
+                val spanMask = spanWorld
+                        .map { "*" }
+                        .fold("", {a,b -> a+b})
+                while (workText.contains(spanWorld, true)) {
+                    val wtSize1 = workText.length
+                    val afterWorkText =  workText.substringAfter(spanWorld)
+                    val wtSize2 = afterWorkText.length
+                    val endSpan = wtSize1-wtSize2
+                    val startSpan = endSpan - spanWorld.length
+                    workText = workText.replaceFirst(spanWorld, spanMask)
+                    spannable.setSpan(
+                            ForegroundColorSpan(Color.RED),
+                            startSpan, endSpan,
+                            Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+                }
+
+            }
+
+            bottomSheetDescription.text = spannable//serverResponseData.explanation
 
             bottomSheetDate.text = serverResponseData.date
             bottomSheetCopyright.text = serverResponseData.copyright
