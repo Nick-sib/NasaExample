@@ -67,7 +67,7 @@ class AnimationsTransformActivity: AppCompatActivity() {
                         tvDate.text = serverResponseData.date ?: "i'm don't know"
                         tvTitle.text = serverResponseData.title ?: "Without"
                         tvDescription.text = serverResponseData
-                            .explanation?.substring(0, DESCRIPTION_LENGTH) ?:  "Without"
+                            .explanation.substring(0, DESCRIPTION_LENGTH)
                     }
                 }
             }
