@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
@@ -26,6 +25,7 @@ import geekbarains.material.model.entity.picture.PictureOfTheDayData
 import geekbarains.material.view.ui.activities.MainActivity
 import geekbarains.material.view.ui.adapters.page.adapter.DepthPageTransformer
 import geekbarains.material.view.ui.adapters.page.adapter.HistoryPageAdapter
+import java.util.*
 
 
 class PictureOfTheDayFragment : Fragment() {
@@ -33,7 +33,6 @@ class PictureOfTheDayFragment : Fragment() {
     private var binding: MainFragmentBinding? = null
     val loadedData: LoadedData = LoadedDataImpl
     var currentFragmentIndex: Int = 0
-
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var bottomSheetView: ConstraintLayout
@@ -128,7 +127,7 @@ class PictureOfTheDayFragment : Fragment() {
             val spannable = SpannableStringBuilder(serverResponseData.explanation)
 
 
-            var workText = serverResponseData.explanation.toLowerCase()
+            var workText = serverResponseData.explanation.toLowerCase(Locale.ROOT)
             SPAN_DESCRIPTION.forEach { spanWorld ->
                 val spanMask = spanWorld
                         .map { "*" }
@@ -147,9 +146,7 @@ class PictureOfTheDayFragment : Fragment() {
                 }
 
             }
-
             bottomSheetDescription.text = spannable//serverResponseData.explanation
-
             bottomSheetDate.text = serverResponseData.date
             bottomSheetCopyright.text = serverResponseData.copyright
         }

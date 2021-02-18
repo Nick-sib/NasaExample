@@ -55,7 +55,7 @@ class AnimationsMotionActivity: AppCompatActivity() {//R.layout.motion_activity
                             text = serverResponseData.copyright ?: "Without"
                         }
                         findViewById<TextView>(R.id.tv_info)?.run{
-                            text = serverResponseData.explanation ?:  "Without"
+                            text = serverResponseData.explanation
                         }
                     }
                 }
